@@ -16,9 +16,15 @@ public class RegExGenerator {
 
     public String getDot(RegEx regExController) {
         String output = "";
-        for (int i = 0; i < regExController.getRepetitionsNumber(); i++) {
+        int repetitions = regExController.getRepetitionsNumber();
+        for (int i = 0; i < repetitions; i++) {
             output = output.concat(String.valueOf(charGenerator.generateRandomChar()));
         }
+        return output;
+    }
+
+    public String getGroup(RegEx regExController) {
+        String output = "";
         return output;
     }
 
@@ -29,26 +35,20 @@ public class RegExGenerator {
         for (int i = 0; i < numberOfResults; i++) {
            // maxLength += 1;
             String output = "";
-            int currentPosition = 0;
-            while (regEx.length() > currentPosition) {
+            while (regEx.length() > regExController.getIteratorPosition()) {
                 char nextChar = regExController.getNext();
                 if (nextChar ==  '.') {
                     output = output.concat(getDot(regExController));
+                } else if (nextChar == '[') {
+                    output = output.concat(getGroup(regExController));
+                } else if (nextChar == '\\') {
+                    output = output.concat(String.valueOf(regExController.getNext()));
                 }
             }
-            System.out.println("PRINT ME BITCH");
-            System.out.println(output);
             outputArray.add(output);
 
         }
         return outputArray;
-        /*return new ArrayList<String>() {
-            {
-                add("a");
-                add("b");
-                add("c");
-            }
-        };*/
     }
 
 }

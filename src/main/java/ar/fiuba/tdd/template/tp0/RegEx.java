@@ -18,8 +18,12 @@ public class RegEx {
         return nextChar;
     }
 
-/*    public String getGroup() {
-        for(int index = iterator + 1; index < regEx.length(); index++) {
+    public int getIteratorPosition() {
+        return iterator;
+    }
+
+    public String getGroup() {
+        for (int index = iterator + 1; index < regEx.length(); index++) {
             if (regEx.charAt(index) == ']') {
                 String group = regEx.substring(iterator, index);
                 iterator = index + 1;
@@ -27,7 +31,7 @@ public class RegEx {
             }
         }
         return regEx;
-    }*/
+    }
 
 /*    public boolean isNextModifier() {
         return (regEx.charAt(iterator) == '*' || regEx.charAt(iterator) == '+' || regEx.charAt(iterator) == '?');

@@ -27,12 +27,12 @@ public class RegExGeneratorTest {
     }
 
     //TODO: Uncomment these tests
-    /*@Test
+    @Test
     public void testAnyCharacter() {
         assertTrue(validate(".", 1));
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void testMultipleCharacters() {
         assertTrue(validate("...", 1));
     }
@@ -47,7 +47,7 @@ public class RegExGeneratorTest {
         assertTrue(validate("\\@..", 1));
     }
 
-    @Test
+    /*@Test
     public void testZeroOrOneCharacter() {
         assertTrue(validate("\\@.h?", 1));
     }

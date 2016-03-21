@@ -19,7 +19,8 @@ public class RandomGenerator {
     }*/
 
     public char generateRandomChar() {
-        return (char) generator.nextInt(255);
+        int charCode = generator.nextInt(255);
+        return (char) charCode;
     }
 
 //    public int getRandomSize() {
