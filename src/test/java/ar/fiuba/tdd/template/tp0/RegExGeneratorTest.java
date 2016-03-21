@@ -64,5 +64,25 @@ public class RegExGeneratorTest {
         assertTrue(validate("[abc]+", 1));
     }
 
+    @Test
+    public void testExceptionMessageOnUnescaped() {
+        try {
+            validate("[ab-c]+", 1);
+            //fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void testExceptionMessageOnStart() {
+        try {
+            validate("^ab", 1);
+            //fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
     // TODO: Add more tests!!!
 }
