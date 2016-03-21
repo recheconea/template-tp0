@@ -15,30 +15,33 @@ public class RegExValidator {
         while (!regEx.isLastChar()) {
             previousChar = currentChar;
             currentChar = regEx.getNext();
-            checkDoubleQuantifier(currentChar, previousChar, regEx);
+            if (isQuantifier(currentChar) && isQuantifier(previousChar)) {
+                regEx.restartIterator();
+                throw new Exception("Invalid regex. Quantifiers should not be preceeded by other quantifiers");
+            }
         }
         regEx.restartIterator();
         return true;
     }
 
-    private boolean checkDoubleQuantifier(char currentChar, char previousChar, RegEx regEx) throws Exception {
+ /*   private boolean checkDoubleQuantifier(char currentChar, char previousChar, RegEx regEx) throws Exception {
         if (isQuantifier(currentChar) && isQuantifier(previousChar)) {
             regEx.restartIterator();
             throw new Exception("Invalid regex. Quantifiers should not be preceeded by other quantifiers");
         }
         return true;
-    }
+    }*/
 
     private boolean validateStartAndEnd(RegEx regEx) throws Exception {
         if (isStartOrEnd(regEx.seekChar(0))) {
             throw  new Exception("Invalid Regex. Regex can not start with $ or ^");
         }
-        char previousChar = regEx.getNext();
+        char previousChar; //= regEx.getNext();
         char currentChar = regEx.getNext();
         while (!regEx.isLastChar()) {
-            validateEscapedStartEnd(currentChar, previousChar, regEx);
             previousChar = currentChar;
             currentChar = regEx.getNext();
+            validateEscapedStartEnd(currentChar, previousChar, regEx);
         }
         regEx.restartIterator();
         return true;
@@ -57,17 +60,14 @@ public class RegExValidator {
         if (currentChar == ']') {
             throw new Exception("Invalid regex. Regex should not start with ]");
         }
-        char previousChar = currentChar;
-        currentChar = regEx.getNext();
+        char previousChar;// = currentChar;
         while (!regEx.isLastChar()) {
+            previousChar = currentChar;
+            currentChar = regEx.getNext();
             validateEscapedCloseBracket(currentChar, previousChar,regEx);
             if (currentChar == '[' && previousChar != '\\') {
                 validateEscapedCharsInBrackets(regEx);
-                previousChar = ']';
-                currentChar = regEx.getNext();
-            } else {
-                previousChar = currentChar;
-                currentChar = regEx.getNext();
+                currentChar = ']';
             }
         }
         return true;

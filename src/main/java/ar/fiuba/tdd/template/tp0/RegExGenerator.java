@@ -43,9 +43,11 @@ public class RegExGenerator {
     }
 
     // TODO: Uncomment parameters
-    public List<String> generate(String regEx, int numberOfResults) {
+    public List<String> generate(String regEx, int numberOfResults) throws Exception {
+        RegExValidator validator = new RegExValidator();
         ArrayList<String> outputArray = new ArrayList<>();
         RegEx regExController = new RegEx(regEx);
+        validator.validate(regExController);
         for (int i = 0; i < numberOfResults; i++) {
            // maxLength += 1;
             String output = "";
