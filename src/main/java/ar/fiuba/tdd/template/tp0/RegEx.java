@@ -41,10 +41,13 @@ public class RegEx {
         if (regEx.length() == iterator) {
             return 1;
         } else if (regEx.charAt(iterator) == '*') {
+            iterator++;
             return new RandomGenerator().getRandomLength(10);
         } else if (regEx.charAt(iterator) == '+') {
+            iterator++;
             return (new RandomGenerator().getRandomLength(10) + 1);
         } else if (regEx.charAt(iterator) == '?') {
+            iterator++;
             return new RandomGenerator().getRandomLength(1);
         }
         return 1;

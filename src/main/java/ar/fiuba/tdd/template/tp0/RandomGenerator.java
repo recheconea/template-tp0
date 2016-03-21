@@ -13,10 +13,10 @@ public class RandomGenerator {
         generator = new Random();
     }
 
-   /* public char generateRandomChar(char[] charList) {
-        int randomChar = generator.nextInt(charList.length);
-        return charList[randomChar];
-    }*/
+    public char generateRandomChar(String charList) {
+        int randomChar = generator.nextInt(charList.length());
+        return charList.charAt(randomChar);
+    }
 
     public char generateRandomChar() {
         int charCode = generator.nextInt(255);

@@ -47,7 +47,7 @@ public class RegExGeneratorTest {
         assertTrue(validate("\\@..", 1));
     }
 
-    /*@Test
+    @Test
     public void testZeroOrOneCharacter() {
         assertTrue(validate("\\@.h?", 1));
     }
@@ -60,6 +60,6 @@ public class RegExGeneratorTest {
     @Test
     public void testCharacterSetWithQuantifiers() {
         assertTrue(validate("[abc]+", 1));
-    }*/
+    }
     // TODO: Add more tests!!!
 }

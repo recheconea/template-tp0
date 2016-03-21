@@ -23,8 +23,22 @@ public class RegExGenerator {
         return output;
     }
 
+    public String getLiteral(RegEx regExController, char literal) {
+        String output = "";
+        int repetitions = regExController.getRepetitionsNumber();
+        for (int i = 0; i < repetitions; i++) {
+            output = output.concat(String.valueOf(literal));
+        }
+        return output;
+    }
+
     public String getGroup(RegEx regExController) {
         String output = "";
+        String group = regExController.getGroup();
+        int repetitions = regExController.getRepetitionsNumber();
+        for (int i = 0; i < repetitions; i++) {
+            output = output.concat(String.valueOf(charGenerator.generateRandomChar(group)));
+        }
         return output;
     }
 
@@ -43,6 +57,8 @@ public class RegExGenerator {
                     output = output.concat(getGroup(regExController));
                 } else if (nextChar == '\\') {
                     output = output.concat(String.valueOf(regExController.getNext()));
+                } else {
+                    output = output.concat(getLiteral(regExController, nextChar));
                 }
             }
             outputArray.add(output);
