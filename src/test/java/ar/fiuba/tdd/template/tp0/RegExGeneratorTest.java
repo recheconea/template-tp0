@@ -3,9 +3,11 @@ package ar.fiuba.tdd.template.tp0;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RegExGeneratorTest {
@@ -61,5 +63,6 @@ public class RegExGeneratorTest {
     public void testCharacterSetWithQuantifiers() throws Exception {
         assertTrue(validate("[abc]+", 1));
     }
+
     // TODO: Add more tests!!!
 }

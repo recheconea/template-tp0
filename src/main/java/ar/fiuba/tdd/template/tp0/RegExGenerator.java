@@ -42,6 +42,18 @@ public class RegExGenerator {
         return output;
     }
 
+    public String getNextCharValues(char nextChar, RegEx regExController) {
+        if (nextChar ==  '.') {
+            return getDot(regExController);
+        } else if (nextChar == '[') {
+            return getGroup(regExController);
+        } else if (nextChar == '\\') {
+            return String.valueOf(regExController.getNext());
+        } else {
+            return getLiteral(regExController, nextChar);
+        }
+    }
+
     // TODO: Uncomment parameters
     public List<String> generate(String regEx, int numberOfResults) throws Exception {
         RegExValidator validator = new RegExValidator();
@@ -54,18 +66,9 @@ public class RegExGenerator {
             regExController.restartIterator();
             while (regEx.length() > regExController.getIteratorPosition()) {
                 char nextChar = regExController.getNext();
-                if (nextChar ==  '.') {
-                    output = output.concat(getDot(regExController));
-                } else if (nextChar == '[') {
-                    output = output.concat(getGroup(regExController));
-                } else if (nextChar == '\\') {
-                    output = output.concat(String.valueOf(regExController.getNext()));
-                } else {
-                    output = output.concat(getLiteral(regExController, nextChar));
-                }
+                output = output.concat(getNextCharValues(nextChar, regExController));
             }
             outputArray.add(output);
-
         }
         return outputArray;
     }
