@@ -49,6 +49,7 @@ public class RegExGenerator {
         for (int i = 0; i < numberOfResults; i++) {
            // maxLength += 1;
             String output = "";
+            regExController.restartIterator();
             while (regEx.length() > regExController.getIteratorPosition()) {
                 char nextChar = regExController.getNext();
                 if (nextChar ==  '.') {

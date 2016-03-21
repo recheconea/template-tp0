@@ -33,9 +33,20 @@ public class RegEx {
         return regEx;
     }
 
-/*    public boolean isNextModifier() {
-        return (regEx.charAt(iterator) == '*' || regEx.charAt(iterator) == '+' || regEx.charAt(iterator) == '?');
-    }*/
+    public char seekChar(int position) {
+        if (position <= regEx.length()) {
+            return regEx.charAt(position);
+        }
+        return '\0';
+    }
+
+    public void restartIterator() {
+        this.iterator = 0;
+    }
+
+    public boolean isLastChar() {
+        return regEx.length() >= getIteratorPosition();
+    }
 
     public int getRepetitionsNumber() {
         if (regEx.length() == iterator) {
