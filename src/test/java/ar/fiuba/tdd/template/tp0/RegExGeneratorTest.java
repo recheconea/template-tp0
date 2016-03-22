@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class RegExGeneratorTest {
 
     private boolean validate(String regEx, int numberOfResults) throws Exception {
-        RegExGenerator generator = new RegExGenerator();
+        RegExGenerator generator = new RegExGenerator(20);
         // TODO: Uncomment parameters
         List<String> results = generator.generate(regEx, numberOfResults);
         // force matching the beginning and the end of the strings

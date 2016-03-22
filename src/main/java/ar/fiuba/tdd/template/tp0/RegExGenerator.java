@@ -6,11 +6,11 @@ import java.util.Random;
 
 public class RegExGenerator {
     // TODO: Uncomment this field
-    //private int maxLength;
+    private int maxLength;
     private RandomGenerator charGenerator;
 
-    public RegExGenerator(/*int maxLength*/) {
-        //this.maxLength = maxLength;
+    public RegExGenerator(int maxLength) {
+        this.maxLength = maxLength;
         charGenerator = new RandomGenerator();
     }
 
@@ -60,8 +60,9 @@ public class RegExGenerator {
         ArrayList<String> outputArray = new ArrayList<>();
         RegEx regExController = new RegEx(regEx);
         validator.validate(regExController);
+        regExController.setMaxLength(validator.validateMaxSize(regExController, maxLength), maxLength);
+        regExController.restartIterator();
         for (int i = 0; i < numberOfResults; i++) {
-           // maxLength += 1;
             String output = "";
             regExController.restartIterator();
             while (regEx.length() > regExController.getIteratorPosition()) {

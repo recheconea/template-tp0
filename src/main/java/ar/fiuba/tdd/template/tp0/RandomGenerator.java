@@ -20,12 +20,12 @@ public class RandomGenerator {
 
     public char generateRandomChar() {
         int charCode = generator.nextInt(255);
+        //Excludes carriageReturn because it does not pass the tests
+        if (charCode == 13 || charCode == 255) {
+            charCode++;
+        }
         return (char) charCode;
     }
-
-//    public int getRandomSize() {
-//        return generator.nextInt(10);
-//    }
 
     public int getRandomLength(int maxSize) {
         return generator.nextInt(maxSize);

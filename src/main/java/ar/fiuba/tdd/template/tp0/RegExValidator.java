@@ -24,14 +24,6 @@ public class RegExValidator {
         return true;
     }
 
- /*   private boolean checkDoubleQuantifier(char currentChar, char previousChar, RegEx regEx) throws Exception {
-        if (isQuantifier(currentChar) && isQuantifier(previousChar)) {
-            regEx.restartIterator();
-            throw new Exception("Invalid regex. Quantifiers should not be preceeded by other quantifiers");
-        }
-        return true;
-    }*/
-
     private boolean validateStartAndEnd(RegEx regEx) throws Exception {
         if (isStartOrEnd(regEx.seekChar(0))) {
             throw  new Exception("Invalid Regex. Regex can not start with $ or ^");
@@ -70,6 +62,7 @@ public class RegExValidator {
                 currentChar = ']';
             }
         }
+        regEx.restartIterator();
         return true;
     }
 
@@ -100,6 +93,57 @@ public class RegExValidator {
 
     private boolean isStartOrEnd(char currentChar) {
         return currentChar == '^' || currentChar == '$';
+    }
+
+    private int getQuantifierMultiplicity(char currentChar, char lastChar, RegEx regEx) {
+        if (currentChar == '+' && lastChar != '\\') {
+            regEx.setPlusAmmount(regEx.getPlusAmmount() + 1);
+            return 1;
+        } else if (currentChar == '*' && lastChar != '\\') {
+            regEx.setAsteriskAmmount(regEx.getAsteriskAmmount() + 1);
+        }
+        return 0;
+    }
+
+    private void findCloseBracket(RegEx regEx) {
+        char currentChar = regEx.getNext();
+        char lastChar = '[';
+        while (!regEx.isLastChar()) {
+            if (currentChar == ']' && lastChar != '\\') {
+                return;
+            }
+            lastChar = currentChar;
+            currentChar = regEx.getNext();
+        }
+    }
+
+    public int validateMaxSize(RegEx regEx, int maxSize) throws Exception {
+        int minSize = 1;
+        char currentChar = regEx.getNext();
+        char lastChar = '\0';
+        while (!regEx.isLastChar()) {
+            if (currentChar == '[') {
+                findCloseBracket(regEx);
+                lastChar = ']';
+                currentChar = regEx.getNext();
+            } else if (isQuantifier(currentChar)) {
+                minSize += getQuantifierMultiplicity(currentChar, lastChar, regEx);
+                lastChar = currentChar;
+                currentChar = regEx.getNext();
+            } else if (lastChar != '\0') {
+                minSize += 1;
+                lastChar = currentChar;
+                currentChar = regEx.getNext();
+            }
+        }
+        return validateSizesValues(minSize, maxSize);
+    }
+
+    private int validateSizesValues(int minSize, int maxSize) throws Exception {
+        if (minSize > maxSize) {
+            throw new Exception("Max Size cant be lower than the minSize required by regex.");
+        }
+        return minSize;
     }
 
     public boolean validate(RegEx regEx) throws Exception {
